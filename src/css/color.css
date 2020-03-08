@@ -1,0 +1,23 @@
+.bg-white {
+    background-color: white;
+}
+
+.bg-white-opaque {
+    background: rgba(240, 238, 238, 0.65);
+}
+
+.bg-whiter-opaque {
+    background: rgba(247, 247, 247, 0.733);
+}
+
+.gray-scale {
+    background: rgba(71, 70, 70, 0.65);
+}
+
+.grayer-scale {
+    background: rgba(65, 62, 62, 0.3);
+}
+
+.bg-orange {
+    background: rgb(238, 120, 80);
+}

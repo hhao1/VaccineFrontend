@@ -1,0 +1,44 @@
+.container {
+    width: 90%;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+
+}
+
+[class*='col-'] {
+    float:left;
+    margin-top: 1%;
+    margin-left: 1%;
+    /* padding: 1% 0; */
+}
+
+.col-1of10 {
+    width: 9%;
+}
+
+.col-1of5 {
+    width: 19%;
+}
+
+.col-3of10 {
+    width: 28%;
+}
+
+.col-2of5 {
+    width: 38%;
+}
+
+.col-3of5 {
+    width: 58%;
+}
+
+.col-4of5 {
+    width: 78%;
+}
+
+.col-5of5 {
+    width: 100%;
+    margin: 0 0;
+}
