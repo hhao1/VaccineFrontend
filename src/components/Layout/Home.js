@@ -6,8 +6,9 @@ import Select from 'react-select'
 
 import PropTypes from "prop-types"
 import { getLeads } from "../../actions/leads"
+import {setCurrentcountry} from "../../actions/set_current_country"
 
-
+import Map from './Map'
 
 class Home extends Component {
 
@@ -39,6 +40,14 @@ class Home extends Component {
         console.log(position)
     }
 
+    handleButtonClick(){
+        this.props.setCurrentcountry("China")
+    }
+
+    handleSelect(e){
+        console.log(e.label)
+        // this.props.setCurrentcountry(e.label)
+    }
 
     render(){
 
@@ -53,13 +62,12 @@ class Home extends Component {
             <Jumbotron className="container mt-4" style={{height: '20em'}}>
                 <h3>Find Your Destination</h3>
                 <Row>
-                    <Col xs="5"><Select options={list} placeholder="Country" isSearchable={true}/></Col>
+                    <Col xs="5"><Select options={list} placeholder="Country" isSearchable={true} onChange={this.handleSelect}/></Col>
                     <Col xs="4">
                         {/* <button onClick={this.getLocation}>Get Position</button> */}
-                        <Button color="warning" onClick={this.getLocation()}>Go Now</Button>
+                        <Button href="/info" color="warning" onClick={this.handleButtonClick()}>Go Now</Button>
                     </Col>
                 </Row>
-                
             </Jumbotron>
         )
     }
@@ -69,4 +77,4 @@ const mapStateToProps = state => ({
     leads: state.leadReducer.leads
   });
 
-export default withRouter(connect(mapStateToProps, {getLeads})(Home));
+export default withRouter(connect(mapStateToProps, {getLeads,setCurrentcountry})(Home));

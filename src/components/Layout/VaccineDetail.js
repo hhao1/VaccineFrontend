@@ -25,7 +25,7 @@ function VaccineDetail(props) {
                 <h2 style={{'color': 'red'}}>Influenza</h2>
 
                 {/* <Button className="w-75 border-0 mt-8" style={{'background': 'orange', 'color': 'white'}}>Nearest Store</Button> */}
-                <MapPopup/>
+                {/* <MapPopup/> */}
             </Col>
 
             <Col sm={{ size: '6'}} className="border border-light rounded" id="vaccine-info" style={{height: '30em'}}>

@@ -10,13 +10,14 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  Button,
-  NavbarText
+  DropdownItem
 } from 'reactstrap'
+
 import { withRouter } from 'react-router-dom'
 
 import { getLeads } from "../../actions/leads"
+import {setCurrentcountry} from "../../actions/set_current_country"
+
 
 export class Header extends Component {
 
@@ -37,7 +38,7 @@ export class Header extends Component {
   // shoud update Redux store field
   handleDropdownItemClick(e) {
     console.log(e.target.textContent)
-
+    this.props.setCurrentcountry(e.target.textContent)
   }
 
   render() {
@@ -56,7 +57,7 @@ export class Header extends Component {
         <Nav>
           <NavItem><NavLink href="/">Home</NavLink></NavItem>
           <NavItem><NavLink href="/info">About us</NavLink></NavItem>
-          <NavItem><NavLink href="/">Contact Us</NavLink></NavItem>
+          <NavItem><NavLink href="/contact">Contact Us</NavLink></NavItem>
 
           {onInfoPage && 
           <UncontrolledDropdown nav inNavbar>
@@ -80,4 +81,4 @@ const mapStateToProps = state => ({
   leads: state.leadReducer.leads
 });
 
-export default connect(mapStateToProps, {getLeads})(Header);
+export default connect(mapStateToProps, {getLeads, setCurrentcountry})(Header);

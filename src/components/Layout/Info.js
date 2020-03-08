@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import MapContainer from "./MapContainer";
 import CardContainer from "./CardContainer";
 import PlaceSearcher from "./PlaceSearcher";
+import Map from './Map'
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
@@ -17,7 +18,7 @@ class Info extends Component {
     markers: PropTypes.array.isRequired
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getVaccines();
     this.props.getMarkers();
     this.getLocation();
@@ -32,17 +33,18 @@ class Info extends Component {
   }
 
   getCoordinates(position) {
-    console.log(
-      "lat:" + position.coords.latitude + " lng:" + position.coords.longitude
-    );
+    // console.log(
+    //   "lat:" + position.coords.latitude + " lng:" + position.coords.longitude
+    // );
   }
 
   render() {
     const { vaccines, markers } = this.props;
-    console.log(markers);
+
     // this should be in Redux
     const curDestination = "China";
 
+    markers.map(m=> console.log(m.lat))
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
@@ -78,7 +80,31 @@ class Info extends Component {
             </Col>
 
             <Col xs="6">
-              <MapContainer markers={markers} userLocation={{}} />
+              {/* <MapContainer markers={markers} userLocation={{}} /> */}
+              <Map 
+                  id="myMap"
+                  options={{
+                    center: { lat: 49, lng: -123 },
+                    zoom: 8
+                  }}
+                  onMapLoad={map => {
+
+                      new window.google.maps.Marker({
+                        position: { lat: 49, lng: -123 },
+                        map: map
+                      });
+                      // markers.map(l => {
+                      //       new window.google.maps.Marker({
+                      //           position: { lat: l.lat, lng: l.lon },
+                      //           map: map
+                      //       });
+                      // })
+
+                      // new window.google.maps.Marker({
+                      //     position: { lat: markers[0].lat, lng: markers[0].lon },
+                      //     map: map
+                      // });
+                  }}/>
             </Col>
 
             {/* <PlaceSearcher /> */}
