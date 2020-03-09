@@ -7,10 +7,11 @@ import { withRouter } from "react-router-dom";
 import MapContainer from "./MapContainer";
 import CardContainer from "./CardContainer";
 import PlaceSearcher from "./PlaceSearcher";
-import Map from './Map'
+import Map from "./Map";
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
+import { setCurrentcountry } from "../../actions/set_current_country";
 
 class Info extends Component {
   static propTypes = {
@@ -42,9 +43,9 @@ class Info extends Component {
     const { vaccines, markers } = this.props;
 
     // this should be in Redux
-    const curDestination = "China";
+    const curDestination = "Albania";
 
-    markers.map(m=> console.log(m.lat))
+    markers.map(m => console.log(m.lat));
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
@@ -81,30 +82,30 @@ class Info extends Component {
 
             <Col xs="6">
               {/* <MapContainer markers={markers} userLocation={{}} /> */}
-              <Map 
-                  id="myMap"
-                  options={{
-                    center: { lat: 49, lng: -123 },
-                    zoom: 8
-                  }}
-                  onMapLoad={map => {
+              <Map
+                id="myMap"
+                options={{
+                  center: { lat: 49, lng: -123 },
+                  zoom: 8
+                }}
+                onMapLoad={map => {
+                  new window.google.maps.Marker({
+                    position: { lat: 49, lng: -123 },
+                    map: map
+                  });
+                  // markers.map(l => {
+                  //       new window.google.maps.Marker({
+                  //           position: { lat: l.lat, lng: l.lon },
+                  //           map: map
+                  //       });
+                  // })
 
-                      new window.google.maps.Marker({
-                        position: { lat: 49, lng: -123 },
-                        map: map
-                      });
-                      // markers.map(l => {
-                      //       new window.google.maps.Marker({
-                      //           position: { lat: l.lat, lng: l.lon },
-                      //           map: map
-                      //       });
-                      // })
-
-                      // new window.google.maps.Marker({
-                      //     position: { lat: markers[0].lat, lng: markers[0].lon },
-                      //     map: map
-                      // });
-                  }}/>
+                  // new window.google.maps.Marker({
+                  //     position: { lat: markers[0].lat, lng: markers[0].lon },
+                  //     map: map
+                  // });
+                }}
+              />
             </Col>
 
             {/* <PlaceSearcher /> */}
@@ -117,9 +118,10 @@ class Info extends Component {
 
 const mapStateToProps = state => ({
   vaccines: state.vaccineReducer.vaccines,
-  markers: state.markerReducer.markers
+  markers: state.markerReducer.markers,
+  curDestination: state.CountryReducer.currentCountry
 });
 
 export default withRouter(
-  connect(mapStateToProps, { getVaccines, getMarkers })(Info)
+  connect(mapStateToProps, { getVaccines, getMarkers, setCurrentcountry })(Info)
 );

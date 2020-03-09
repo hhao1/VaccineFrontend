@@ -1,12 +1,12 @@
 const initialState = {
-  currentCountry: -1
+  currentVaccine: -1
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "SET_CURRENT_COUNTRY":
+    case "SET_CURRENT_VACCINE":
       return {
-        currentCountry: action.currentCountry
+        currentVaccine: action.currentVaccine
       };
     default:
       return state;

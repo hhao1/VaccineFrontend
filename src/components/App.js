@@ -7,21 +7,20 @@ import Header from "./Layout/Header";
 import Home from "./Layout/Home";
 import Info from "./Layout/Info";
 import ContactUs from "./Layout/ContactUs";
+import Aboutus from "./Layout/Aboutus";
 import VaccineDetail from "./Layout/VaccineDetail";
 
 import PlaceSearcher from "./Layout/PlaceSearcher";
 
-import Map from './Layout/Map'
-
+import Map from "./Layout/Map";
 
 import { Provider } from "react-redux";
 import store from "../store";
 
 const list = [
-  {lat: 41.0082, lng: 28.9784},
+  { lat: 41.0082, lng: 28.9784 },
   { lat: 41.0082, lng: 29 }
-]
-
+];
 
 class App extends Component {
   render() {
@@ -29,7 +28,6 @@ class App extends Component {
       <Provider store={store}>
         <Header />
         <Router>
-
           {/* <Map 
             id="myMap"
             options={{
@@ -47,9 +45,10 @@ class App extends Component {
             }}/> */}
           <Switch>
             <Route exact path="/" render={() => <Home />} />
+            <Route exact path="/aboutus" render={() => <Aboutus />} />
             <Route exact path="/info" render={() => <Info />} />
             <Route exact path="/detail" render={() => <VaccineDetail />} />
-            <Route exact path="/contact" render={()=> <ContactUs/>}/>
+            <Route exact path="/contact" render={() => <ContactUs />} />
           </Switch>
         </Router>
       </Provider>
