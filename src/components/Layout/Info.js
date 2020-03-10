@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Jumbotron} from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import CardContainer from "./CardContainer";
 import Map from './Map'
