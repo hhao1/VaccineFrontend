@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Jumbotron, Button } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Jumbotron } from 'reactstrap';
 import classnames from 'classnames';
+import { Link, withRouter } from "react-router-dom";
 
-import MapPopup from './MapPopup'
+import { connect } from "react-redux";
+import { setCurrentVaccine } from "../../actions/set_current_vaccine";
+
+
+
+// import MapPopup from './MapPopup'
 
 function VaccineDetail(props) {
 
@@ -13,17 +19,14 @@ function VaccineDetail(props) {
         setActiveTab(tab);
   }
 
-//   const{
-//       vaccineSelected
-//   } = this.props
-
   return (
     <Jumbotron className="container mt-5">
         <Row>
             <Col sm={{ size: '4', offset: 1 }} id="vaccine-title" style={{height: '30em', 'fontFamily': "'Overpass', sans-serif"}}>
                 <h1 style={{'fontSize': '3.5em', 'color': 'gray'}}>What You Need To Know About</h1> 
-                <h2 style={{'color': 'red'}}>Influenza</h2>
+  <h2 style={{'color': 'red'}}>{props.currentVaccine}</h2>
 
+                {/* //{this.props.currentVaccine} */}
                 {/* <Button className="w-75 border-0 mt-8" style={{'background': 'orange', 'color': 'white'}}>Nearest Store</Button> */}
                 {/* <MapPopup/> */}
             </Col>
@@ -60,4 +63,12 @@ function VaccineDetail(props) {
   );
 }
 
-export default VaccineDetail;
+
+const mapStateToProps = state => ({
+    currentVaccine: state.CurVaccineReducer.currentVaccine
+});
+  
+export default withRouter(
+    connect(mapStateToProps, {setCurrentVaccine})(VaccineDetail)
+);
+  

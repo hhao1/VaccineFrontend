@@ -7,15 +7,13 @@ import {
   Navbar,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
 
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 
 import { getLeads } from "../../actions/leads";
 import { setCurrentcountry } from "../../actions/set_current_country";
@@ -51,16 +49,11 @@ export class Header extends Component {
       <Navbar color="light" light expand="md">
         <NavbarBrand>Vaccine Finder</NavbarBrand>
 
+        <Link className="ml-3" to="/">Home</Link>
+        <Link className="ml-3" to="/aboutus">About Us</Link>
+        <Link className="ml-3" to="/contact">Contact</Link>
+
         <Nav>
-          <NavItem>
-            <NavLink href="/">Home</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/aboutus"> About us</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/contact">Contact Us</NavLink>
-          </NavItem>
 
           {onInfoPage && (
             <UncontrolledDropdown nav inNavbar>
@@ -68,7 +61,6 @@ export class Header extends Component {
                 Change Destination
               </DropdownToggle>
               <DropdownMenu right style={{ height: "10em", overflow: "auto" }}>
-                {/* <DropdownItem divider /> */}
                 {leads.map(lead => (
                   <DropdownItem
                     key={lead.id}

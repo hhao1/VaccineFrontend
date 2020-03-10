@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Jumbotron, Button, Input } from "reactstrap";
+import { Row, Col, Jumbotron, Input } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Select from "react-select";
-import "./Home.css";
+import "../../css/Home.css";
 
 import PropTypes from "prop-types";
 import { getLeads } from "../../actions/leads";
 import { setCurrentcountry } from "../../actions/set_current_country";
 import Background from "../images/background.jpg";
 
-import Map from "./Map";
 var sectionStyle = {
   width: "100%",
   height: "100%",
@@ -45,8 +44,6 @@ class Home extends Component {
     console.log(position);
   }
 
-  handleButtonClick() {}
-
   handleSelect(e) {
     this.props.setCurrentcountry(e.label);
     // this.props.setCurrentcountry(e.label)
@@ -68,7 +65,7 @@ class Home extends Component {
             backgroundColor: "rgba(233, 236, 239, 0.2)"
           }}
         >
-          <h3>Find Your Destination</h3>
+          <h3 style={{color: 'white'}}>Find Your Destination</h3>
           <Row>
             <Col xs="5">
               <Select
@@ -84,9 +81,10 @@ class Home extends Component {
             <Col xs="2">
               {/* <button onClick={this.getLocation}>Get Position</button> */}
               <LinkContainer to="/info">
-                <Button color="warning" onClick={this.handleButtonClick()}>
+                {/* <Button color="warning" onClick={this.handleButtonClick()}>
                   Go Now
-                </Button>
+                </Button> */}
+                <Link to="/info">Go Now</Link>
               </LinkContainer>
             </Col>
           </Row>
