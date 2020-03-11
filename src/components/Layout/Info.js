@@ -9,6 +9,9 @@ import Map from './Map'
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
+import { getCountryCode } from "../../actions/countryCode";
+
+import axios from "axios"
 
 class Info extends Component {
   static propTypes = {
@@ -20,6 +23,10 @@ class Info extends Component {
     this.props.getVaccines();
     this.props.getMarkers();
     this.getLocation();
+
+    // axios.get("https://restcountries.eu/rest/v2/name/china?fullText=true").then( res => {
+    //   console.log(res.data[0].alpha2Code)
+    // })
   }
 
   getLocation() {
@@ -37,7 +44,7 @@ class Info extends Component {
   }
 
   render() {
-    const { vaccines, markers, curDestination } = this.props;
+    const { vaccines, markers, curDestination, currentCountryCode } = this.props;
 
     markers.map(m=> console.log(m.lat))
     return (
@@ -45,7 +52,7 @@ class Info extends Component {
         <Container>
           <Row>
             <h3 className="text-secondary">
-              Vaccines you should get before travelling to {curDestination}
+              Vaccines you should get before travelling to {curDestination} and {currentCountryCode}
             </h3>
           </Row>
           <Row>
@@ -113,9 +120,10 @@ class Info extends Component {
 const mapStateToProps = state => ({
   vaccines: state.vaccineReducer.vaccines,
   markers: state.markerReducer.markers,
-  curDestination: state.curCountryReducer.currentCountry
+  curDestination: state.curCountryReducer.currentCountry,
+  currentCountryCode: state.curCountryReducer.currentCountryCode
 });
 
 export default withRouter(
-  connect(mapStateToProps, { getVaccines, getMarkers })(Info)
+  connect(mapStateToProps, { getVaccines, getMarkers, getCountryCode })(Info)
 );
