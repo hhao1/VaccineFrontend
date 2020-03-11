@@ -17,6 +17,10 @@ import {
 
 import { getLeads } from "../../actions/leads";
 import { setCurrentcountry } from "../../actions/set_current_country";
+import { getCountryCode } from "../../actions/set_current_country_code";
+import { setCurrentcountryCode } from "../../actions/set_current_country_code";
+
+
 
 export class Header extends Component {
   constructor(props) {
@@ -31,17 +35,20 @@ export class Header extends Component {
 
   componentDidMount() {
     this.props.getLeads();
+
+    if(this.props.curDestination !== -1)
+      this.props.getCountryCode(this.props.curDestination);
   }
 
   // shoud update Redux store field
   handleDropdownItemClick(e) {
     this.props.setCurrentcountry(e.target.textContent);
+    this.props.getCountryCode(e.target.textContent)
   }
 
   render() {
-    // const onInfoPage this.props.curDestination !== "" ? true : false
 
-    const { leads } = this.props;
+    const { leads, currentCountryCode } = this.props;
 
     const onInfoPage = true;
 
@@ -73,20 +80,23 @@ export class Header extends Component {
             </UncontrolledDropdown>
           )}
         </Nav>
-
-        <img
+        
+        {currentCountryCode !== -1 && <img
           className="float-right"
-          src="https://www.countryflags.io/be/shiny/32.png"
-        ></img>
+          src={"https://www.countryflags.io/" + currentCountryCode + "/shiny/32.png"}
+        ></img>}
+        
       </Navbar>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  leads: state.leadReducer.leads
+  leads: state.leadReducer.leads,
+  curDestination: state.curCountryReducer.currentCountry,
+  currentCountryCode: state.curCountryCodeReducer.currentCountryCode
 });
 
-export default connect(mapStateToProps, { getLeads, setCurrentcountry })(
+export default connect(mapStateToProps, { getLeads, setCurrentcountry, getCountryCode, setCurrentcountryCode})(
   Header
 );

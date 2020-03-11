@@ -9,9 +9,7 @@ import Map from './Map'
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
-import { getCountryCode } from "../../actions/countryCode";
-
-import axios from "axios"
+import { getCountryCode } from "../../actions/set_current_country_code";
 
 class Info extends Component {
   static propTypes = {
@@ -22,11 +20,7 @@ class Info extends Component {
   componentWillMount() {
     this.props.getVaccines();
     this.props.getMarkers();
-    this.getLocation();
-
-    // axios.get("https://restcountries.eu/rest/v2/name/china?fullText=true").then( res => {
-    //   console.log(res.data[0].alpha2Code)
-    // })
+    // this.getLocation();
   }
 
   getLocation() {
@@ -44,15 +38,15 @@ class Info extends Component {
   }
 
   render() {
-    const { vaccines, markers, curDestination, currentCountryCode } = this.props;
+    const { vaccines, markers, curDestination } = this.props;
 
-    markers.map(m=> console.log(m.lat))
+    // markers.map(m=> console.log(m.lat))
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
           <Row>
             <h3 className="text-secondary">
-              Vaccines you should get before travelling to {curDestination} and {currentCountryCode}
+              Vaccines you should get before travelling to {curDestination}
             </h3>
           </Row>
           <Row>
@@ -121,7 +115,7 @@ const mapStateToProps = state => ({
   vaccines: state.vaccineReducer.vaccines,
   markers: state.markerReducer.markers,
   curDestination: state.curCountryReducer.currentCountry,
-  currentCountryCode: state.curCountryReducer.currentCountryCode
+  currentCountryCode: state.curCountryCodeReducer.currentCountryCode0
 });
 
 export default withRouter(

@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Jumbotron,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText
-} from "reactstrap";
+// import {
+//   Container,
+//   Row,
+//   Col,
+//   Jumbotron,
+//   Button,
+//   Form,
+//   FormGroup,
+//   Label,
+//   Input,
+//   FormText
+// } from "reactstrap";
 
 class ContactUs extends Component {
   render() {

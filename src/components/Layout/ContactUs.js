@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Jumbotron, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Row, Col, Jumbotron, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class ContactUs extends Component {
 
