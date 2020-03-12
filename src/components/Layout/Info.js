@@ -37,10 +37,16 @@ class Info extends Component {
     // );
   }
 
+  // Weird Problem here as this function is triggered by a click event, Error will show up
+  // props undefined.
+  printMarkers(){
+    console.log("markers: ")
+    console.log(this.props.markers)
+  }
+
   render() {
     const { vaccines, markers, curDestination } = this.props;
 
-    // markers.map(m=> console.log(m.lat))
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
@@ -48,6 +54,8 @@ class Info extends Component {
             <h3 className="text-secondary">
               Vaccines you should get before travelling to {curDestination}
             </h3>
+
+            <button onClick={this.printMarkers}>Show Markers</button>
           </Row>
           <Row>
             <Col xs="6">
@@ -77,6 +85,7 @@ class Info extends Component {
 
             <Col xs="6">
               {/* <MapContainer markers={markers} userLocation={{}} /> */}
+              { markers.length > 0 &&
               <Map 
                   id="myMap"
                   options={{
@@ -89,18 +98,13 @@ class Info extends Component {
                         position: { lat: 49, lng: -123 },
                         map: map
                       });
-                      // markers.map(l => {
-                      //       new window.google.maps.Marker({
-                      //           position: { lat: l.lat, lng: l.lon },
-                      //           map: map
-                      //       });
-                      // })
-
-                      // new window.google.maps.Marker({
-                      //     position: { lat: markers[0].lat, lng: markers[0].lon },
-                      //     map: map
-                      // });
-                  }}/>
+                      markers.map(l => {
+                            new window.google.maps.Marker({
+                                position: { lat: Number(l.lat), lng: Number(l.lon) },
+                                map: map
+                            });
+                      })
+                  }}/>}
             </Col>
 
             {/* <PlaceSearcher /> */}
