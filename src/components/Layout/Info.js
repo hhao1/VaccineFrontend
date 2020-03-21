@@ -55,7 +55,7 @@ class Info extends Component {
               Vaccines you should get before travelling to {curDestination}
             </h3>
 
-            <button onClick={this.printMarkers}>Show Markers</button>
+            
           </Row>
           <Row>
             <Col xs="6">
