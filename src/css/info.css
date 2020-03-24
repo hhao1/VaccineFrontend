@@ -53,4 +53,8 @@
         height: 18em !important;
     }
 
+    .container #vaccine-info{
+        height: fit-content !important;
+    }
+
 }
