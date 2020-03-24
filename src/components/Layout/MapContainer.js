@@ -16,7 +16,7 @@ class MapContainer extends Component {
       border: "1px solid gray"
     };
 
-    const userLocation = { lat: 49.1755761, lng: -123.14568639999997 };
+    const userLocation = {};
 
     var bounds = new this.props.google.maps.LatLngBounds();
 

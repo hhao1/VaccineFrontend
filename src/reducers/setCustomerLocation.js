@@ -1,14 +1,12 @@
 const initialState = {
-  currentCountry: -1,
-  countryObject: null
+  CustomerLatLng: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "SET_CURRENT_COUNTRY":
+    case "SET_CUSTOMER_LOCATION":
       return {
-        currentCountry: action.currentCountry,
-        countryObject: action.countryObject
+        CustomerLatLng: action.latLng
       };
     default:
       return state;

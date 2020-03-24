@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Jumbotron} from "reactstrap";
+import { Container, Row, Col, Jumbotron } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import CardContainer from "./CardContainer";
-import Map from './Map'
+import Map from "./Map";
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
@@ -39,14 +39,22 @@ class Info extends Component {
 
   // Weird Problem here as this function is triggered by a click event, Error will show up
   // props undefined.
-  printMarkers(){
-    console.log("markers: ")
-    console.log(this.props.markers)
+  printMarkers() {
+    console.log("markers: ");
+    console.log(this.props.markers);
   }
 
   render() {
-    const { vaccines, markers, curDestination } = this.props;
-
+    const {
+      vaccines,
+      markers,
+      curDestination,
+      curCountryObject,
+      customerLocation
+    } = this.props;
+    var curCountryVaccines = new Set(curCountryObject.vaccines);
+    console.log(curCountryObject.vaccines);
+    console.log(curCountryVaccines);
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
@@ -54,30 +62,39 @@ class Info extends Component {
             <h3 className="text-secondary">
               Vaccines you should get before travelling to {curDestination}
             </h3>
-
-            
           </Row>
           <Row>
             <Col xs="6">
               <Col className="overflow-auto" style={{ height: "30em" }}>
                 {/* present yellow fever on top of the list */}
                 {vaccines
-                  .filter(vaccine => vaccine.id === 7)
-                  .map(vaccine => (
-                    <CardContainer
-                      name={"Yellow Fever"}
-                      description={vaccine.detail}
-                      key={vaccine.id}
-                      isImportant={true}
-                    />
-                  ))}
-                {vaccines
-                  .filter(vaccine => vaccine.id !== 7 && vaccine.name !== "")
+                  .filter(
+                    vaccine =>
+                      vaccine.notice !== "" &&
+                      curCountryVaccines.has(vaccine.id)
+                  )
                   .map(vaccine => (
                     <CardContainer
                       name={vaccine.name}
                       description={vaccine.detail}
                       key={vaccine.id}
+                      isImportant={true}
+                      notice={vaccine.notice}
+                    />
+                  ))}
+                {vaccines
+                  .filter(
+                    vaccine =>
+                      vaccine.notice === "" &&
+                      vaccine.name !== "" &&
+                      curCountryVaccines.has(vaccine.id)
+                  )
+                  .map(vaccine => (
+                    <CardContainer
+                      name={vaccine.name}
+                      description={vaccine.detail}
+                      key={vaccine.id}
+                      notice={vaccine.notice}
                     />
                   ))}
               </Col>
@@ -85,26 +102,35 @@ class Info extends Component {
 
             <Col xs="6">
               {/* <MapContainer markers={markers} userLocation={{}} /> */}
-              { markers.length > 0 &&
-              <Map 
+              {markers.length > 0 && (
+                <Map
                   id="myMap"
                   options={{
-                    center: { lat: 49, lng: -123 },
+                    center: customerLocation,
                     zoom: 8
                   }}
                   onMapLoad={map => {
+                    new window.google.maps.Marker({
+                      position: customerLocation,
+                      map: map
+                    });
 
+                    markers.map((l, index) => {
+                      var letter = String.fromCharCode(
+                        "A".charCodeAt(0) + index
+                      );
                       new window.google.maps.Marker({
-                        position: { lat: 49, lng: -123 },
+                        position: { lat: Number(l.lat), lng: Number(l.lon) },
+                        icon:
+                          "http://maps.google.com/mapfiles/marker" +
+                          letter +
+                          ".png",
                         map: map
                       });
-                      markers.map(l => {
-                            new window.google.maps.Marker({
-                                position: { lat: Number(l.lat), lng: Number(l.lon) },
-                                map: map
-                            });
-                      })
-                  }}/>}
+                    });
+                  }}
+                />
+              )}
             </Col>
 
             {/* <PlaceSearcher /> */}
@@ -119,7 +145,9 @@ const mapStateToProps = state => ({
   vaccines: state.vaccineReducer.vaccines,
   markers: state.markerReducer.markers,
   curDestination: state.curCountryReducer.currentCountry,
-  currentCountryCode: state.curCountryCodeReducer.currentCountryCode0
+  currentCountryCode: state.curCountryCodeReducer.currentCountryCode0,
+  curCountryObject: state.curCountryReducer.countryObject,
+  customerLocation: state.CustomerLocationReducer.CustomerLatLng
 });
 
 export default withRouter(

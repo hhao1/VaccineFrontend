@@ -1,4 +1,5 @@
-export const setCurrentVaccine = currentVaccine => ({
+export const setCurrentVaccine = (currentVaccine, vaccineObject) => ({
   type: "SET_CURRENT_VACCINE",
-  currentVaccine
+  currentVaccine,
+  vaccineObject
 });

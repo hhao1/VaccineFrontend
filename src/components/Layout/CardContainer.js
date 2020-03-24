@@ -15,14 +15,11 @@ class CardContainer extends Component {
   componentDidMount() {}
 
   handleButtonClick() {
-    this.props.setCurrentVaccine(this.props.name);
+    this.props.setCurrentVaccine(this.props.name, this.props);
   }
 
   render() {
-    const { 
-      name,
-      description,
-      isImportant } = this.props;
+    const { name, description, isImportant } = this.props;
 
     const importantBodyStyle = {
       border: isImportant ? "2px solid orange" : "none"
@@ -50,8 +47,9 @@ class CardContainer extends Component {
                 Learn more
               </Button> */}
 
-              <Link to="/detail" onClick={this.handleButtonClick}>Learn More</Link>
-
+              <Link to="/detail" onClick={this.handleButtonClick}>
+                Learn More
+              </Link>
             </LinkContainer>
           </Col>
           {/* <Col xs="2"><Button color="link" size="sm">Locate</Button></Col> */}
