@@ -37,7 +37,7 @@ class CardContainer extends Component {
           <small className="text-muted">{description}</small>
         </CardText>
         <Row>
-          <Col xs="4">
+          <Col xs="6">
             <LinkContainer to="/detail">
               {/* <Button
                 color="link"

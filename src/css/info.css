@@ -47,4 +47,10 @@
 
 @media screen and (max-width: 425px){
 
+    /* Vaccine Detail */
+
+    .container #vaccine-title{
+        height: 18em !important;
+    }
+
 }
