@@ -11,6 +11,8 @@ import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
 import { getCountryCode } from "../../actions/set_current_country_code";
 
+import "../../css/info.css"
+
 class Info extends Component {
   static propTypes = {
     vaccines: PropTypes.array.isRequired,
@@ -61,78 +63,77 @@ class Info extends Component {
               Vaccines you should get before travelling to {curDestination}
             </h3>
           </Row>
-          <Row>
-            <Col xs="6">
-              <Col className="overflow-auto" style={{ height: "30em" }}>
-                {/* present yellow fever on top of the list */}
-                {vaccines
-                  .filter(
-                    vaccine =>
-                      vaccine.notice !== "" &&
-                      curCountryVaccines.has(vaccine.id)
-                  )
-                  .map(vaccine => (
-                    <CardContainer
-                      name={vaccine.name}
-                      description={vaccine.detail}
-                      key={vaccine.id}
-                      isImportant={true}
-                      notice={vaccine.notice}
+          
+          {/* Changing the layout to grid to make it responsive to screen size */}
+          <div className="info-container">
+              <div className="vaccine-list">
+                  <Col className="overflow-auto" style={{ height: "30em" }}>
+                    {vaccines
+                      .filter(
+                        vaccine =>
+                          vaccine.notice !== "" &&
+                          curCountryVaccines.has(vaccine.id)
+                      )
+                      .map(vaccine => (
+                        <CardContainer
+                          name={vaccine.name}
+                          description={vaccine.detail}
+                          key={vaccine.id}
+                          isImportant={true}
+                          notice={vaccine.notice}
+                        />
+                      ))}
+                    {vaccines
+                      .filter(
+                        vaccine =>
+                          vaccine.notice === "" &&
+                          vaccine.name !== "" &&
+                          curCountryVaccines.has(vaccine.id)
+                      )
+                      .map(vaccine => (
+                        <CardContainer
+                          name={vaccine.name}
+                          description={vaccine.detail}
+                          key={vaccine.id}
+                          notice={vaccine.notice}
+                        />
+                      ))}
+                  </Col>
+              </div>
+              <div className="store-list">
+                  {markers.length > 0 && (
+                    <Map
+                      id="myMap"
+                      options={{
+                        center: customerLocation,
+                        zoom: 8
+                      }}
+                      onMapLoad={map => {
+                        new window.google.maps.Marker({
+                          position: customerLocation,
+                          map: map
+                        });
+
+                        markers.map((l, index) => {
+                          var letter = String.fromCharCode(
+                            "A".charCodeAt(0) + index
+                          );
+                          new window.google.maps.Marker({
+                            position: { lat: Number(l.lat), lng: Number(l.lon) },
+                            icon:
+                              "http://maps.google.com/mapfiles/marker" +
+                              letter +
+                              ".png",
+                            map: map
+                          });
+                        });
+                      }}
                     />
-                  ))}
-                {vaccines
-                  .filter(
-                    vaccine =>
-                      vaccine.notice === "" &&
-                      vaccine.name !== "" &&
-                      curCountryVaccines.has(vaccine.id)
-                  )
-                  .map(vaccine => (
-                    <CardContainer
-                      name={vaccine.name}
-                      description={vaccine.detail}
-                      key={vaccine.id}
-                      notice={vaccine.notice}
-                    />
-                  ))}
-              </Col>
-            </Col>
+                  )}
+              </div>
+          </div>
 
-            <Col xs="6">
-              {/* <MapContainer markers={markers} userLocation={{}} /> */}
-              {markers.length > 0 && (
-                <Map
-                  id="myMap"
-                  options={{
-                    center: customerLocation,
-                    zoom: 8
-                  }}
-                  onMapLoad={map => {
-                    new window.google.maps.Marker({
-                      position: customerLocation,
-                      map: map
-                    });
 
-                    markers.map((l, index) => {
-                      var letter = String.fromCharCode(
-                        "A".charCodeAt(0) + index
-                      );
-                      new window.google.maps.Marker({
-                        position: { lat: Number(l.lat), lng: Number(l.lon) },
-                        icon:
-                          "http://maps.google.com/mapfiles/marker" +
-                          letter +
-                          ".png",
-                        map: map
-                      });
-                    });
-                  }}
-                />
-              )}
-            </Col>
-
-            {/* <PlaceSearcher /> */}
-          </Row>
         </Container>
       </Jumbotron>
     );
