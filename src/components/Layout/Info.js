@@ -58,7 +58,7 @@ class Info extends Component {
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
-          <Row>
+          <Row className="info-header">
             <h3 className="text-secondary">
               Vaccines you should get before travelling to {curDestination}
             </h3>

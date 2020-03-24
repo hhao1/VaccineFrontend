@@ -1,3 +1,7 @@
+.info-header {
+    margin: 0 !important;
+    padding: 0 15px !important;
+}
 
 .info-container {
     width: 100%;
@@ -30,6 +34,13 @@
 
     .info-container .store-list {
         order: 1;
+        text-align: center;
+        justify-content: center;
+        padding: 0 15px;
+    }
+
+    .info-container .store-list #myMap{
+        width: 100% !important;
     }
 }
 
