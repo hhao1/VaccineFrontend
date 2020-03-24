@@ -9,6 +9,8 @@ import Info from "./Layout/Info";
 import ContactUs from "./Layout/ContactUs";
 import Aboutus from "./Layout/Aboutus";
 import VaccineDetail from "./Layout/VaccineDetail";
+import Footer from "./Layout/Footer";
+
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -27,6 +29,8 @@ class App extends Component {
             <Route exact path="/detail" render={() => <VaccineDetail />} />
             <Route exact path="/contact" render={() => <ContactUs />} />
           </Switch>
+
+          <Footer />
         </Router>
       </Provider>
     );
