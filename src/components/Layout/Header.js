@@ -20,8 +20,6 @@ import { setCurrentcountry } from "../../actions/set_current_country";
 import { getCountryCode } from "../../actions/set_current_country_code";
 import { setCurrentcountryCode } from "../../actions/set_current_country_code";
 
-
-
 export class Header extends Component {
   constructor(props) {
     super(props);
@@ -36,40 +34,58 @@ export class Header extends Component {
   componentDidMount() {
     this.props.getLeads();
 
-    if(this.props.curDestination !== -1)
+    if (this.props.curDestination !== -1)
       this.props.getCountryCode(this.props.curDestination);
   }
 
   // shoud update Redux store field
   handleDropdownItemClick(e) {
-    this.props.setCurrentcountry(e.target.textContent);
-    this.props.getCountryCode(e.target.textContent)
+    var Country = this.props.leads.filter(
+      lead => lead.Country_Name === e.target.textContent
+    )[0];
+    var CountryObject = {
+      label: Country.Country_Name,
+      value: Country.id,
+      vaccines: Country.Vaccines
+    };
+    this.props.setCurrentcountry(e.target.textContent, CountryObject);
+    this.props.getCountryCode(e.target.textContent);
   }
 
   render() {
-
-    const { leads, currentCountryCode } = this.props;
+    const { leads, currentCountryCode, curDestination } = this.props;
 
     const onInfoPage = true;
+    var display = "Change Destination";
+    if (curDestination !== -1) {
+      display = curDestination;
+    }
 
     return (
       <Navbar color="light" light expand="md">
         <NavbarBrand>Vaccine Finder</NavbarBrand>
 
-        <Link className="ml-3" to="/">Home</Link>
-        <Link className="ml-3" to="/aboutus">About Us</Link>
-        <Link className="ml-3" to="/contact">Contact</Link>
+        <Link className="ml-3" to="/">
+          Home
+        </Link>
+        <Link className="ml-3" to="/aboutus">
+          About Us
+        </Link>
+        <Link className="ml-3" to="/contact">
+          Contact
+        </Link>
 
         <Nav>
-
           {onInfoPage && (
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Change Destination
+                {display}
               </DropdownToggle>
               <DropdownMenu right style={{ height: "10em", overflow: "auto" }}>
                 {leads.map(lead => (
                   <DropdownItem
+                    tag={Link}
+                    to="/info"
                     key={lead.id}
                     onClick={this.handleDropdownItemClick}
                   >
@@ -80,12 +96,17 @@ export class Header extends Component {
             </UncontrolledDropdown>
           )}
         </Nav>
-        
-        {currentCountryCode !== -1 && <img
-          className="float-right"
-          src={"https://www.countryflags.io/" + currentCountryCode + "/shiny/32.png"}
-        ></img>}
-        
+
+        {currentCountryCode !== -1 && (
+          <img
+            className="float-right"
+            src={
+              "https://www.countryflags.io/" +
+              currentCountryCode +
+              "/shiny/32.png"
+            }
+          ></img>
+        )}
       </Navbar>
     );
   }
@@ -97,6 +118,9 @@ const mapStateToProps = state => ({
   currentCountryCode: state.curCountryCodeReducer.currentCountryCode
 });
 
-export default connect(mapStateToProps, { getLeads, setCurrentcountry, getCountryCode, setCurrentcountryCode})(
-  Header
-);
+export default connect(mapStateToProps, {
+  getLeads,
+  setCurrentcountry,
+  getCountryCode,
+  setCurrentcountryCode
+})(Header);

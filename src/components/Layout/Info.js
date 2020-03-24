@@ -53,8 +53,6 @@ class Info extends Component {
       customerLocation
     } = this.props;
     var curCountryVaccines = new Set(curCountryObject.vaccines);
-    console.log(curCountryObject.vaccines);
-    console.log(curCountryVaccines);
     return (
       <Jumbotron className="container mt-4" style={{ height: "40em" }}>
         <Container>
