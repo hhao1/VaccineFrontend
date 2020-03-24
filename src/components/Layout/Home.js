@@ -15,11 +15,13 @@ import { getLeads } from "../../actions/leads";
 import { setCurrentcountry } from "../../actions/set_current_country";
 import { setCustomerLocation } from "../../actions/set_customer_location";
 import Background from "../images/background.jpg";
+
 var sectionStyle = {
   width: "100%",
   height: "100%",
   backgroundImage: `url(${Background})`
 };
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -54,15 +56,18 @@ class Home extends Component {
   getCoordinates(position) {
     console.log(position);
   }
+  
   handleChange = address => {
     this.setState({ address });
   };
+
   handleSelectAddress = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => this.props.setCustomerLocation(latLng))
       .catch(error => console.error("Error", error));
   };
+
   handleSelect(e) {
     this.props.setCurrentcountry(e.label, e);
     // this.props.setCurrentcountry(e.label)
@@ -82,13 +87,12 @@ class Home extends Component {
     return (
       <section className="background" style={sectionStyle}>
         <Jumbotron
-          className="container mt-4"
+          className="home-banner container mt-4"
           style={{
-            height: "60em",
             backgroundColor: "rgba(233, 236, 239, 0.2)"
           }}
         >
-          <h3 style={{ color: "white" }}>Find Your Destination</h3>
+          <h3 className="text-white">Find Your Destination</h3>
           <Row>
             <Col xs="5">
               <Select

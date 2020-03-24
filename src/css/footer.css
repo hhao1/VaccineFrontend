@@ -1,21 +1,30 @@
 .footer{
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 20px;
+    grid-template-columns: 30% 30% auto;
+    grid-gap: auto;
     height: 6em;
-    margin-top: -32px;
+    padding: 0 5%;
+    /* margin-top: -32px; */
+}
+
+.footer > div {
+    padding: 10px 10%;
 }
 
 @media screen and (max-width: 768px){
+
+    
+
+}
+
+@media screen and (max-width: 425px){
 
     .footer{
         height: fit-content;
         grid-template-columns: auto;
     }
 
-}
-
-@media screen and (max-width: 425px){
-
-    
+    .footer > div {
+        padding: 10px 0;
+    }
 }

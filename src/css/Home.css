@@ -1,3 +1,44 @@
 .background {
   background-size: cover;
 }
+
+.container.jumbotron.home-banner{
+    height: 60em !important;
+    /* background-color: "rgba(233, 236, 239, 0.2)"; */
+}
+
+.home-banner  input {
+  opacity: 0.8;
+}
+
+.home-banner .col-4 input{
+  border: 1px solid hsl(0,0%,80%);
+  border-radius: 4px;
+  padding: 0 8px;
+  height: 36px;
+}
+
+@media screen and (max-width: 768px){
+  .container.jumbotron.home-banner{
+    height: 20em !important;
+    /* background-color: "rgba(233, 236, 239, 0.2)"; */
+  }
+
+  .home-banner > .row{
+    text-align: center;
+    justify-content: center;
+    padding: 0 16px;
+  }
+  .home-banner [class*='col-']{
+    max-width: 100% !important;
+    flex-basis: 100%;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+
+  .home-banner input {
+    width: 100%;
+  }
+
+
+}
