@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 
 import CardContainer from "./CardContainer";
 import Map from "./Map";
+import StoreInfoCard from "./StoreInfoCard";
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
@@ -56,16 +57,17 @@ class Info extends Component {
     } = this.props;
     var curCountryVaccines = new Set(curCountryObject.vaccines);
     return (
-      <Jumbotron className="container mt-4" style={{ height: "40em" }}>
-        <Container>
-          <Row className="info-header">
-            <h3 className="text-secondary">
-              Vaccines you should get before travelling to {curDestination}
-            </h3>
-          </Row>
-          
+      <Jumbotron className="container mt-4 info-page-container">
+        {/* <Container> */}
           {/* Changing the layout to grid to make it responsive to screen size */}
           <div className="info-container">
+
+              <Row className="info-header">
+                <h3 className="text-secondary">
+                  Vaccines you should get before travelling to {curDestination}
+                </h3>
+              </Row>
+
               <div className="vaccine-list">
                   <Col className="overflow-auto" style={{ height: "30em" }}>
                     {vaccines
@@ -100,9 +102,8 @@ class Info extends Component {
                       ))}
                   </Col>
               </div>
-              <div className="store-list">
-                  {markers.length > 0 && (
-                    <Map
+              {markers.length > 0 && <div className="store-list">
+                  <Map
                       id="myMap"
                       options={{
                         center: customerLocation,
@@ -128,13 +129,16 @@ class Info extends Component {
                           });
                         });
                       }}
-                    />
-                  )}
-              </div>
+                  />
+
+                  <div className="store-info-list"> 
+                      {markers.map(maker => <StoreInfoCard key={maker.id} name={maker.name} number={maker.phone} address={maker.address} hour={maker.hours}/>)}
+                  </div>
+                
+                </div>
+              }
           </div>
-
-
-        </Container>
+        {/* </Container> */}
       </Jumbotron>
     );
   }

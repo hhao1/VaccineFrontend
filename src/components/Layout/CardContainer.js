@@ -39,14 +39,6 @@ class CardContainer extends Component {
         <Row>
           <Col xs="6">
             <LinkContainer to="/detail">
-              {/* <Button
-                color="link"
-                size="sm"
-                onClick={() => this.handleButtonClick(this.props.name)}
-              >
-                Learn more
-              </Button> */}
-
               <Link to="/detail" onClick={this.handleButtonClick}>
                 Learn More
               </Link>
