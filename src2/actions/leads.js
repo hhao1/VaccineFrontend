@@ -5,7 +5,7 @@ import { GET_LEADS } from "./types";
 //GET LEADS
 export const getLeads = () => dispatch => {
   axios
-    .get("http://localhost:8000/api/leads/")
+    .get("http:///3.22.44.25:8000/api/leads/")
     .then(res => {
       dispatch({
         type: GET_LEADS,

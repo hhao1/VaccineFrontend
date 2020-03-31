@@ -5,7 +5,7 @@ import { GET_MARKERS } from "./types";
 //GET MARKERS
 export const getMarkers = () => dispatch => {
   axios
-    .get("http://localhost:8000/api/makers/") // Should change to /api/markers
+    .get("http:///3.22.44.25:8000/api/makers/") // Should change to /api/markers
     .then(res => {
       dispatch({
         type: GET_MARKERS,
