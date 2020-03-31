@@ -56,12 +56,13 @@ class Home extends Component {
   getCoordinates(position) {
     console.log(position);
   }
-  
+
   handleChange = address => {
     this.setState({ address });
   };
 
-  handleSelectAddress = address => {
+  handleSelectAddress = (address, placeID) => {
+    this.setState({ address });
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => this.props.setCustomerLocation(latLng))
