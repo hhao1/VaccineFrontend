@@ -5,8 +5,10 @@ import { GET_VACCINES } from "./types";
 //GET LEADS
 export const getVaccines = () => dispatch => {
   axios
-    .get("http:///3.22.44.25:8000/api/vaccines/", {
-      headers: { "Access-Control-Allow-Origin": "http://localhost:3000" }
+    .get("https://database.vaccinefinders.ca/api/vaccines/", {
+      headers: {
+        "Access-Control-Allow-Origin": "https://database.vaccinefinders.ca/"
+      }
     })
     .then(res => {
       dispatch({
