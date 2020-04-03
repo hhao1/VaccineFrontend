@@ -5,7 +5,7 @@ import { GET_MARKERS } from "./types";
 //GET MARKERS
 export const getMarkers = () => dispatch => {
   axios
-    .get("http://localhost:8000/api/makers/", {
+    .get("https://database.vaccinefinders.ca/api/makers/", {
       headers: { "Access-Control-Allow-Origin": true }
     }) // Should change to /api/markers
     .then(res => {
