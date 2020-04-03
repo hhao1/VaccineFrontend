@@ -61,6 +61,8 @@ export class Header extends Component {
       display = curDestination;
     }
 
+    console.log("Header Open : " + this.props.headerOpen)
+
     return (
       <Navbar color="light" light expand="md">
         <NavbarBrand>Vaccine Finder</NavbarBrand>
@@ -115,7 +117,8 @@ export class Header extends Component {
 const mapStateToProps = state => ({
   leads: state.leadReducer.leads,
   curDestination: state.curCountryReducer.currentCountry,
-  currentCountryCode: state.curCountryCodeReducer.currentCountryCode
+  currentCountryCode: state.curCountryCodeReducer.currentCountryCode,
+  headerOpen: state.headerOpen
 });
 
 export default connect(mapStateToProps, {
