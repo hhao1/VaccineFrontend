@@ -47,6 +47,38 @@ class Info extends Component {
     console.log(this.props.markers);
   }
 
+
+  // calculating the shortest dist between 2 location using  ‘Haversine’ formula
+  calcDistance(customerLocation, marker){
+    const cLng = customerLocation.lng;
+    const cLat = customerLocation.lat;
+
+    const mLng = marker.lon;
+    const mLat = marker.lat;
+
+    const R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(mLat-cLat);  // deg2rad below
+    var dLon = this.deg2rad(mLng-cLng); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(cLat)) * Math.cos(this.deg2rad(mLat)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    marker["distance"] = R * c; // Distance in km
+  }
+  
+  deg2rad(deg) {
+    return deg * (Math.PI/180)
+  }
+
+  compareDist(m1, m2){
+    if(m1.distance > m2.distance) return 1;
+    if(m1.distance < m2.distance) return -1;
+    
+    return 0;
+  }
+
   render() {
     const { vaccines, markers, curDestination, curCountryObject } = this.props;
     var curLocation = null;
@@ -69,6 +101,7 @@ class Info extends Component {
     }
 
     var curCountryVaccines = new Set(curCountryObject.vaccines);
+
     return (
       <Jumbotron className="container mt-4 info-page-container">
         {/* <Container> */}
@@ -113,7 +146,9 @@ class Info extends Component {
                 ))}
             </Col>
           </div>
+          
           {markers.length > 0 && (
+
             <div className="store-list">
               <Map
                 id="myMap"
@@ -127,7 +162,14 @@ class Info extends Component {
                     map: map
                   });
 
-                  markers.map((l, index) => {
+                  var sortedMarkers = [].concat(markers);
+
+                  sortedMarkers.map(m => this.calcDistance(customerLocation, m));
+
+                  sortedMarkers.sort(this.compareDist);
+                  console.log(sortedMarkers)
+
+                  sortedMarkers.map((l, index) => {
                     var letter = String.fromCharCode("A".charCodeAt(0) + index);
                     new window.google.maps.Marker({
                       position: { lat: Number(l.lat), lng: Number(l.lon) },
