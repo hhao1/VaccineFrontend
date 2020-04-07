@@ -32,11 +32,14 @@ class CardContainer extends Component {
           {isImportant && (
             <strong className="mr-auto text-danger ml-2">{"(Required)"}</strong>
           )}
+          <Link to="/detail" className="mobile-only" onClick={this.handleButtonClick}> More </Link>
         </CardTitle>
-        <CardText className="mb-0" style={{ lineHeight: "1em" }}>
+
+        <CardText className="mb-0 pc-only" style={{ lineHeight: "1em" }}>
           <small className="text-muted">{description}</small>
         </CardText>
-        <Row>
+
+        <Row className="pc-only">
           <Col xs="6">
             <LinkContainer to="/detail">
               <Link to="/detail" onClick={this.handleButtonClick}>

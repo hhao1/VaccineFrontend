@@ -51,7 +51,9 @@
     text-align: left;
 }
 
-
+.mobile-only {
+    display: none !important;
+}
 
 @media screen and (max-width: 768px){
 
@@ -79,6 +81,30 @@
         order: 3;
     }
 
+    .info-container .vaccine-list .card.card-body {
+        padding-top: 1rem;
+        padding-bottom: 1rem !important;
+    }
+
+    .info-container .vaccine-list .card-title {
+        margin-bottom: 0 !important;
+    }
+
+    .info-container .vaccine-list .card-title .mobile-only {
+        float: right;
+        display: inline !important;
+        font-weight: 400;
+        color: gray;
+    }
+
+    .pc-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
+    }
+
     .info-container .store-list {
         order: 1;
         text-align: center;
@@ -88,6 +114,11 @@
 
     .info-container .store-list #myMap{
         width: 100% !important;
+    }
+
+    .store-info-list .card>div{
+        padding-left: 2.5em;
+        text-align: left;
     }
 }
 

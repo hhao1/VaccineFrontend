@@ -10,7 +10,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Breadcrumb, 
+  BreadcrumbItem
 } from "reactstrap";
 
 // import { withRouter } from "react-router-dom";
@@ -56,60 +58,67 @@ export class Header extends Component {
     const { leads, currentCountryCode, curDestination } = this.props;
 
     const onInfoPage = true;
-    var display = "Change Destination";
+    var display = "Destination";
     if (curDestination !== -1) {
       display = curDestination;
     }
 
-    console.log("Header Open : " + this.props.headerOpen)
 
     return (
-      <Navbar color="light" light expand="md">
-        <NavbarBrand>Vaccine Finder</NavbarBrand>
 
-        <Link className="ml-3" to="/">
-          Home
-        </Link>
-        <Link className="ml-3" to="/aboutus">
-          About Us
-        </Link>
-        <Link className="ml-3" to="/contact">
-          Contact
-        </Link>
+      <Breadcrumb>
+        <BreadcrumbItem><Link to="/">Home</Link></BreadcrumbItem>
+        <BreadcrumbItem><Link to="/aboutus">About Us</Link></BreadcrumbItem>
+        <BreadcrumbItem><Link to="/contact">Contact</Link></BreadcrumbItem>
+        {/* {onInfoPage && <BreadcrumbItem>Destination</BreadcrumbItem> */}
+      </Breadcrumb>
 
-        <Nav>
-          {onInfoPage && (
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                {display}
-              </DropdownToggle>
-              <DropdownMenu right style={{ height: "10em", overflow: "auto" }}>
-                {leads.map(lead => (
-                  <DropdownItem
-                    tag={Link}
-                    to="/info"
-                    key={lead.id}
-                    onClick={this.handleDropdownItemClick}
-                  >
-                    {lead.Country_Name}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          )}
-        </Nav>
+      // <Navbar color="light" light expand="md">
+      //   <NavbarBrand>Vaccine Finder</NavbarBrand>
 
-        {currentCountryCode !== -1 && (
-          <img
-            className="float-right"
-            src={
-              "https://www.countryflags.io/" +
-              currentCountryCode +
-              "/shiny/32.png"
-            }
-          ></img>
-        )}
-      </Navbar>
+      //   <Link className="ml-3" to="/">
+      //     Home
+      //   </Link>
+      //   <Link className="ml-3" to="/aboutus">
+      //     About Us
+      //   </Link>
+      //   <Link className="ml-3" to="/contact">
+      //     Contact
+      //   </Link>
+
+      //   <Nav>
+      //     {onInfoPage && (
+      //       <UncontrolledDropdown nav inNavbar>
+      //         <DropdownToggle nav caret>
+      //           {display}
+      //         </DropdownToggle>
+      //         <DropdownMenu right style={{ height: "10em", overflow: "auto" }}>
+      //           {leads.map(lead => (
+      //             <DropdownItem
+      //               tag={Link}
+      //               to="/info"
+      //               key={lead.id}
+      //               onClick={this.handleDropdownItemClick}
+      //             >
+      //               {lead.Country_Name}
+      //             </DropdownItem>
+      //           ))}
+      //         </DropdownMenu>
+      //       </UncontrolledDropdown>
+      //     )}
+      //   </Nav>
+
+      //   {currentCountryCode !== -1 && (
+      //     <img
+      //       className="float-right"
+      //       src={
+      //         "https://www.countryflags.io/" +
+      //         currentCountryCode +
+      //         "/shiny/32.png"
+      //       }
+      //     ></img>
+      //   )}
+      // </Navbar>
     );
   }
 }

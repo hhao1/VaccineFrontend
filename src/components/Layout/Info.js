@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Jumbotron } from "reactstrap";
+import { Row, Col, Jumbotron } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -40,14 +40,6 @@ class Info extends Component {
     // );
   }
 
-  // Weird Problem here as this function is triggered by a click event, Error will show up
-  // props undefined.
-  printMarkers() {
-    console.log("markers: ");
-    console.log(this.props.markers);
-  }
-
-
   // calculating the shortest dist between 2 location using  ‘Haversine’ formula
   calcDistance(customerLocation, marker){
     const cLng = customerLocation.lng;
@@ -68,10 +60,12 @@ class Info extends Component {
     marker["distance"] = R * c; // Distance in km
   }
   
+  // helper function to convert degree to radian
   deg2rad(deg) {
     return deg * (Math.PI/180)
   }
 
+  // compare function for distance sort
   compareDist(m1, m2){
     if(m1.distance > m2.distance) return 1;
     if(m1.distance < m2.distance) return -1;
@@ -162,14 +156,11 @@ class Info extends Component {
                     map: map
                   });
 
-                  var sortedMarkers = [].concat(markers);
+                  markers.map(m => this.calcDistance(customerLocation, m));
 
-                  sortedMarkers.map(m => this.calcDistance(customerLocation, m));
+                  markers.sort(this.compareDist);
 
-                  sortedMarkers.sort(this.compareDist);
-                  console.log(sortedMarkers)
-
-                  sortedMarkers.map((l, index) => {
+                  markers.map((l, index) => {
                     var letter = String.fromCharCode("A".charCodeAt(0) + index);
                     new window.google.maps.Marker({
                       position: { lat: Number(l.lat), lng: Number(l.lon) },
@@ -184,21 +175,23 @@ class Info extends Component {
               />
 
               <div className="store-info-list">
-                {markers.map(maker => (
-                  <StoreInfoCard
-                    key={maker.id}
-                    name={maker.name}
-                    number={maker.phone}
-                    address={maker.address}
-                    hour={maker.hours}
-                    injection_certified={maker.injection_certified}
-                    certified_travel_consultant={
-                      maker.certified_travel_consultant
-                    }
-                    additional_prescribing_authority={
-                      maker.additional_prescribing_authority
-                    }
-                  />
+                {
+                  
+                  markers.map(maker => (
+                    <StoreInfoCard
+                      key={maker.id}
+                      name={maker.name}
+                      number={maker.phone}
+                      address={maker.address}
+                      hour={maker.hours}
+                      injection_certified={maker.injection_certified}
+                      certified_travel_consultant={
+                        maker.certified_travel_consultant
+                      }
+                      additional_prescribing_authority={
+                        maker.additional_prescribing_authority
+                      }
+                    />
                 ))}
               </div>
             </div>
