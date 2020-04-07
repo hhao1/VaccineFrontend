@@ -103,7 +103,7 @@ class Info extends Component {
         <div className="info-container">
           <Row className="info-header">
             <h3 className="text-secondary">
-              Vaccines you should get before travelling to {curDestination}
+              Vaccines required by {curDestination}
             </h3>
           </Row>
 
@@ -144,6 +144,12 @@ class Info extends Component {
           {markers.length > 0 && (
 
             <div className="store-list">
+
+              <Row className="info-header mobile-only">
+                <h3 className="text-secondary">
+                  Pharmacy near you
+                </h3>
+              </Row>
               <Map
                 id="myMap"
                 options={{
