@@ -5,7 +5,7 @@ import { GET_MARKERS } from "./types";
 //GET MARKERS
 export const getMarkers = () => dispatch => {
   axios
-    .get("http://localhost:8000/api/makers/") // Should change to /api/markers
+    .get("https://database.vaccinefinders.ca/api/makers/") // Should change to /api/markers
     .then(res => {
       dispatch({
         type: GET_MARKERS,

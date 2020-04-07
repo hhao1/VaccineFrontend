@@ -165,7 +165,7 @@ class Info extends Component {
                     new window.google.maps.Marker({
                       position: { lat: Number(l.lat), lng: Number(l.lon) },
                       icon:
-                        "http://maps.google.com/mapfiles/marker" +
+                        "https://maps.google.com/mapfiles/marker" +
                         letter +
                         ".png",
                       map: map
