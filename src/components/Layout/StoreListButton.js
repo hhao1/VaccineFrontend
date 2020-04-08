@@ -1,11 +1,18 @@
 import React, {useState} from "react";
+import { connect } from "react-redux";
 
 import StoreInfoCard from "./StoreInfoCard";
+
+import { getLeads } from "../../actions/leads";
+import { setCurrentcountry } from "../../actions/set_current_country";
+import { getCountryCode } from "../../actions/set_current_country_code";
+import { setCurrentcountryCode } from "../../actions/set_current_country_code";
 
 
 function StoreListButton (props){
 
     const [listDisplay, setListDisplay] = useState(false)
+    const [countryddDisplay, setCountryddDisplay] = useState(false)
 
     const onOpen = () => {
         setListDisplay(true)
@@ -15,8 +22,37 @@ function StoreListButton (props){
         setListDisplay(false)
     }
 
+    const onddOpen = () => {
+        setCountryddDisplay(true)
+    }
+
+    const onddClose = () => {
+        setCountryddDisplay(false)
+    }
+
+
+    props.getLeads();
+
+    if (props.curDestination !== -1) props.getCountryCode(props.curDestination);
+
+    const handleDropdownItemClick = (e) => {
+        var Country = this.props.leads.filter(
+          lead => lead.Country_Name === e.target.textContent
+        )[0];
+
+        var CountryObject = {
+          label: Country.Country_Name,
+          value: Country.id,
+          vaccines: Country.Vaccines
+        };
+
+        props.setCurrentcountry(e.target.textContent, CountryObject);
+        props.getCountryCode(e.target.textContent);
+      }
+
     const {
-        markers
+        markers,
+        leads
     } = props
 
     return (
@@ -45,9 +81,26 @@ function StoreListButton (props){
                     />
                 ))}
             </div>
+
+            <div className="country-dd-container" style={{display: countryddDisplay? "block" : "none"}}> 
+
+            </div>
             
         </div>
     )
 }
 
-export default StoreListButton;
+const mapStateToProps = state => ({
+    leads: state.leadReducer.leads,
+    curDestination: state.curCountryReducer.currentCountry,
+    currentCountryCode: state.curCountryCodeReducer.currentCountryCode,
+    headerOpen: state.headerOpen
+  });
+  
+  export default connect(mapStateToProps, {
+    getLeads,
+    setCurrentcountry,
+    getCountryCode,
+    setCurrentcountryCode
+  })(StoreListButton);
+  
