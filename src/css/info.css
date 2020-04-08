@@ -58,9 +58,9 @@
 @media screen and (max-width: 768px){
 
     .info-page-container {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        max-width: 600px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 95% !important;
     }
     
     .container.jumbotron {
@@ -109,16 +109,82 @@
         order: 1;
         text-align: center;
         justify-content: center;
-        padding: 0 15px;
+        padding: 0;
     }
 
     .info-container .store-list #myMap{
         width: 100% !important;
     }
 
-    .store-info-list .card>div{
+    .store-info-list, .mobile-store-info-list  .card>div{
         padding-left: 2.5em;
         text-align: left;
+    }
+
+    .sl-container {
+        display: grid !important;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        position: relative;
+
+    }
+
+    .sl-btn-container {
+        display: grid !important;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+        justify-items: center;
+        margin: 1rem 0;
+        padding: 8px 0;
+    }
+
+    .sl-btn-container>button {
+        width: 90%;
+        font-size: 18px;
+        line-height: 18px;
+        padding: 6px 0;
+        color: gray;
+    }
+
+    .sl-btn-container>button:last-child {
+
+        background-color: black;
+        color: white;
+    }
+
+
+    .mobile-store-info-list{
+        height: 30em;
+        overflow: scroll;
+        padding: 0 0.5rem;
+    }
+
+    .mobile-store-info-list .card {
+        z-index: 1;
+    }
+
+    .mobile-store-info-list .card h3 {
+        font-size: 1.5rem;
+    }
+
+    .mobile-store-info-list .card h4 {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .mobile-store-info-list button {
+        position: absolute;
+        top: 6rem;
+        right: 1rem;
+        float: right;
+        z-index: 5;
+    }
+
+    .sl-btn {
+        border: 1px solid gray;
+        border-radius: 4px;
+        background-color: white;
+        color: gray;
     }
 }
 

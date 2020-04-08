@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import CardContainer from "./CardContainer";
 import Map from "./Map";
 import StoreInfoCard from "./StoreInfoCard";
+import MobileButtonContainer from "./StoreListButton";
 
 import { getVaccines } from "../../actions/vaccines";
 import { getMarkers } from "../../actions/markers";
@@ -180,10 +181,10 @@ class Info extends Component {
                 }}
               />
 
-              <div className="store-info-list">
-                {
-                  
-                  markers.map(maker => (
+              <MobileButtonContainer markers={markers}/>
+
+              <div className="store-info-list pc-only">
+                {markers.map(maker => (
                     <StoreInfoCard
                       key={maker.id}
                       name={maker.name}

@@ -13,7 +13,7 @@ import classnames from "classnames";
 import { Link, withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { setCurrentVaccine } from "../../actions/set_current_vaccine";
+import { setCurrentVaccine } from "../../../actions/set_current_vaccine";
 
 // import MapPopup from './MapPopup'
 

@@ -4,11 +4,11 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./Layout/HeaderNew";
-import Home from "./Layout/Home";
+import Home from "./Layout/Pages/Home";
 import Info from "./Layout/Info";
-import ContactUs from "./Layout/ContactUs";
-import Aboutus from "./Layout/Aboutus";
-import VaccineDetail from "./Layout/VaccineDetail";
+import ContactUs from "./Layout/Pages/ContactUs";
+import Aboutus from "./Layout/Pages/Aboutus";
+import VaccineDetail from "./Layout/Pages/VaccineDetail";
 import Footer from "./Layout/Footer";
 
 

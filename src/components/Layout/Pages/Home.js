@@ -8,13 +8,13 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import Select from "react-select";
-import "../../css/Home.css";
+import "../../../css/Home.css";
 
 import PropTypes from "prop-types";
-import { getLeads } from "../../actions/leads";
-import { setCurrentcountry } from "../../actions/set_current_country";
-import { setCustomerLocation } from "../../actions/set_customer_location";
-import Background from "../images/background.jpg";
+import { getLeads } from "../../../actions/leads";
+import { setCurrentcountry } from "../../../actions/set_current_country";
+import { setCustomerLocation } from "../../../actions/set_customer_location";
+import Background from "../../images/background.jpg";
 
 var sectionStyle = {
   width: "100%",
